@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -15,6 +16,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,39 +36,18 @@ public class MainActivity extends AppCompatActivity {
     static List<Item> items = new ArrayList<Item>();
     static Context context;
     static RecyclerView.Adapter adapter;
-    static boolean isAvailable;
-    static boolean isWritable;
-    static boolean isReadable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this.getBaseContext();
-        this.checkStorage();
 
-        if(isReadable){
-            System.out.println("Reading now...");
-            StringBuilder sb = new StringBuilder();
-            try{
-                File textFile = new File(Environment.getExternalStorageDirectory() + "/Download/", "Shopping_List.txt");
-                FileInputStream fis = new FileInputStream(textFile);
-
-                if(fis != null){
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader buff = new BufferedReader(isr);
-
-                    String line = null;
-                    while((line = buff.readLine()) != null){
-                        System.out.println(line);
-                    }
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("item list", null);
+        Type type = new TypeToken<ArrayList<Item>>() {}.getType();
+        items = gson.fromJson(json, type);
 
         recyclerView = findViewById(R.id.item_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -102,21 +86,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if(isWritable){
-            File textFile = new File(Environment.getExternalStorageDirectory() + "/Download/", "Shopping_List.txt");
 
-            try {
-                FileOutputStream fos = new FileOutputStream(textFile);
-                fos.write(items.toString().getBytes(StandardCharsets.UTF_8));
-                fos.close();
-
-                System.out.println("File Created");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(items);
+        editor.putString("item list", json);
+        editor.apply();
     }
 
     public static void displayToast(String message){
@@ -157,27 +133,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return shareList;
-    }
-
-    private void checkStorage(){
-        String state = Environment.getExternalStorageState();
-
-        if(Environment.MEDIA_MOUNTED.equals(state)){
-            // Read and write operation possible
-            isAvailable= true;
-            isWritable= true;
-            isReadable= true;
-        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)){
-            // Read operation possible
-            isAvailable= true;
-            isWritable= false;
-            isReadable= true;
-        } else {
-            // SD card not mounted
-            isAvailable = false;
-            isWritable= false;
-            isReadable= false;
-        }
     }
 
 }
