@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static void displayToast(String message){
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        toast.setMargin(0, 1000);
         toast.show();
     }
 
