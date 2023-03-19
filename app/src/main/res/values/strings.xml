@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Fancy Shopping List</string>
+    <string name="submit_button">Add +</string>
+    <string name="input_hint">Enter item...</string>
+    <string name="share">share</string>
+    <string name="deleteAll">delete all</string>
+</resources>
