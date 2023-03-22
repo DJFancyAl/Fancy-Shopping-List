@@ -10,35 +10,35 @@
     <path
         android:pathData="M40,92.57L460,92.57A2,2.48 90,0 1,462.48 94.57L462.48,136.41A2,2.48 90,0 1,460 138.41L40,138.41A2,2.48 90,0 1,37.52 136.41L37.52,94.57A2,2.48 90,0 1,40 92.57z"
         android:strokeWidth="0"
-        android:fillColor="#03dac5"/>
+        android:fillColor="@color/gray_500"/>
     <path
         android:pathData="M415.17,100.02h30.94v30.94h-30.94z"
         android:strokeWidth="0"
-        android:fillColor="#3700b3"/>
+        android:fillColor="@color/blue_700"/>
     <path
         android:pathData="M40,173.69L460,173.69A2,2.48 90,0 1,462.48 175.69L462.48,217.54A2,2.48 90,0 1,460 219.54L40,219.54A2,2.48 90,0 1,37.52 217.54L37.52,175.69A2,2.48 90,0 1,40 173.69z"
         android:strokeWidth="0"
-        android:fillColor="#03dac5"/>
+        android:fillColor="@color/gray_500"/>
     <path
         android:pathData="M415.17,181.14h30.94v30.94h-30.94z"
         android:strokeWidth="0"
-        android:fillColor="#3700b3"/>
+        android:fillColor="@color/blue_700"/>
     <path
         android:pathData="M40,250L460,250A2,2.48 90,0 1,462.48 252L462.48,293.85A2,2.48 90,0 1,460 295.85L40,295.85A2,2.48 90,0 1,37.52 293.85L37.52,252A2,2.48 90,0 1,40 250z"
         android:strokeWidth="0"
-        android:fillColor="#03dac5"/>
+        android:fillColor="@color/gray_500"/>
     <path
         android:pathData="M415.17,257.45h30.94v30.94h-30.94z"
         android:strokeWidth="0"
-        android:fillColor="#3700b3"/>
+        android:fillColor="@color/blue_700"/>
     <path
         android:pathData="M37.52,402.01L329.04,402.01"
         android:strokeWidth="8.68"
         android:fillColor="#00000000"
-        android:strokeColor="#02dbc5"/>
+        android:strokeColor="@color/gray_500"/>
     <path
         android:pathData="M371.11,374.71L460.84,374.71A2,1.64 90,0 1,462.48 376.71L462.48,405.3A2,1.64 90,0 1,460.84 407.3L371.11,407.3A2,1.64 90,0 1,369.47 405.3L369.47,376.71A2,1.64 90,0 1,371.11 374.71z"
         android:strokeWidth="0"
-        android:fillColor="#02dbc5"/>
+        android:fillColor="@color/gray_500"/>
   </group>
 </vector>

@@ -1,14 +1,16 @@
 package com.example.firstapp;
 
 public class Item {
-    String description;
-    Boolean have;
+    private String description;
+    private Boolean have;
 
     public Item(String description) {
+        // Constructor
         this.description = description;
         this.have = false;
     }
 
+    // Getters and Setters
     public String getDescription() {
         return description;
     }
