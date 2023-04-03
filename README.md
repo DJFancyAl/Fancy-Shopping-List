@@ -22,8 +22,8 @@ This app needed to be about as simple as it gets. It needed just five basic func
 
 The app features a very simple UI that will be familiar to all. The theme adapt to your phone for use in _light_ or _dark_ theme modes:
 
-<img style="display: inline; padding-right: 10px;" src="screenshots/Screenshot_20230403-113139.png" alt="Fancy Shopping List Dark Mode" />
-<img  style="display: inline;" src="screenshots/Screenshot_20230403-113310.png" alt="Fancy Shopping List Light Mode" />
+<img style="display: inline; padding-right: 10px; width: 250px;" src="screenshots/Screenshot_20230403-113139.png" alt="Fancy Shopping List Dark Mode" />
+<img  style="display: inline; width: 250px;" src="screenshots/Screenshot_20230403-113310.png" alt="Fancy Shopping List Light Mode" />
 
 ## Construction
 
