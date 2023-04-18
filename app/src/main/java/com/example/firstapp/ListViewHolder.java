@@ -14,13 +14,14 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    Item selectedItem;
     CardView cardView;
     TextView textView;
     ImageButton imageButton;
     CheckBox checkBox;
     Context context;
     int adapterPosition;
-    Item selectedItem;
+    Boolean itemHad;
 
     public ListViewHolder(@NonNull View itemView) {
         // Constructor
@@ -37,10 +38,8 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
     public void onClick(View itemView) {
         // Handles the checkbox click
-        adapterPosition = getAdapterPosition();
-        selectedItem = MainActivity.items.get(adapterPosition);
         selectedItem.setHave();
-        Boolean itemHad = selectedItem.getHave();
+        itemHad = selectedItem.getHave();
         if(itemHad) {
             // Changes the item's appearance if the box is checked
             textView.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));

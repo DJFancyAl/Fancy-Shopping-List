@@ -9,8 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,39 +18,33 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     // Static Variables
+    static List<Item> items = new ArrayList<>();
     static RecyclerView recyclerView;
-    static List<Item> items = new ArrayList<Item>();
-    static Context context;
     static RecyclerView.Adapter adapter;
+    static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Performs tasks as the activity is created
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = this.getBaseContext();
+         context = this.getBaseContext();
 
         // Retrieves Items from Storage
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         if(sharedPreferences != null) {
             Gson gson = new Gson();
             String json = sharedPreferences.getString("item list", null);
-            Type type = new TypeToken<ArrayList<Item>>() {}.getType();
-            items = gson.fromJson(json, type);
+            if(json != null){
+                Type type = new TypeToken<ArrayList<Item>>() {}.getType();
+                items = gson.fromJson(json, type);
+            }
         }
 
         // Initializes the Recycler View
@@ -85,8 +77,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_reset:
                 // The Reset Button - clears the items array and removes old item views
-                items.clear();
-                recyclerView.removeAllViewsInLayout();
+                for (int i=items.size() - 1; i >= 0; i--) {
+                    Item listItem = items.get(i);
+                    if(listItem.getHave() == true){
+                        System.out.println(listItem.getDescription());
+                        items.remove(i);
+                    }
+                }
+                adapter.notifyDataSetChanged();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -121,9 +119,8 @@ public class MainActivity extends AppCompatActivity {
             String output = text.substring(0, 1).toUpperCase() + text.substring(1);
             Item newItem = new Item(output);
             items.add(newItem);
-            editText.setText("");
             this.displayToast(String.valueOf(recyclerView.getAdapter().getItemCount()) + " items");
-//            this.updateChange();
+            editText.setText("");
             adapter.notifyDataSetChanged();
         }
     }
